@@ -178,7 +178,7 @@ streamlit run app/streamlit_app.py
 
 ## 👤 Author
 
-**Sarthak Kharade**
+**Nirbhay Yadav**
 CSE (AIML) Undergraduate | Aspiring Machine Learning Engineer
 
 ---
