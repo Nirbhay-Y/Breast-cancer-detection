@@ -169,9 +169,42 @@ if st.session_state.prediction is not None:
             st.pyplot(fig)
             plt.close(fig)
 
-    # ---------------- DATA SUMMARY ----------------
-    with st.expander("📋 View Raw Input Data"):
-        st.dataframe(st.session_state.input_df.style.highlight_max(axis=0))
+    # ---------------- CRITICAL FEATURE RISK ANALYSIS ----------------
+    st.markdown("### 🔍 Important Breast Cancer Input Features")
+    
+    # Define the 5 key features you specified
+    critical_features = {
+        "mean radius": 14.0,
+        "mean perimeter": 90.0,
+        "mean concave points": 0.05,
+        "worst area": 1000.0,
+        "worst concave points": 0.15
+    }
+
+    # Create 5 columns for the critical feature cards
+    crit_cols = st.columns(5)
+    
+    all_crossed = True  # Flag to check if ALL values are in the danger zone
+
+    for i, (feature, thresh) in enumerate(critical_features.items()):
+        val = st.session_state.input_df[feature].values[0]
+        is_danger = val > thresh
+        
+        if not is_danger:
+            all_crossed = False
+            
+        with crit_cols[i]:
+            # Status Indicator
+            status_label = "🚨 DANGER" if is_danger else "✅ SAFE"
+            status_color = "#ef4444" if is_danger else "#22c55e"
+            
+            st.markdown(f"""
+                <div style="background-color: #1e293b; padding: 10px; border-radius: 10px; border-left: 5px solid {status_color}; text-align: center;">
+                    <p style="margin: 0; font-size: 0.8rem; color: #94a3b8;">{feature.upper()}</p>
+                    <h3 style="margin: 5px 0; color: {status_color};">{status_label}</h3>
+                    <p style="margin: 0; font-weight: bold;">{val:.2f}</p>
+                </div>
+            """, unsafe_allow_html=True)
 
 # ---------------- FOOTER ----------------
 st.markdown("---")
