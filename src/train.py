@@ -1,5 +1,4 @@
 import joblib
-from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 import pandas as pd
@@ -9,8 +8,7 @@ from preprocessing import scale_train_test
 
 def train():
     # Load dataset
-    data = load_breast_cancer(as_frame = True)
-    df = data.frame
+    df = pd.read_csv('../data/data1.csv')
 
     X = df.drop('target', axis = 1)
     y = df['target']

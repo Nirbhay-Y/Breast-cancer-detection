@@ -39,7 +39,7 @@ st.markdown("""
 # ---------------- HEADER ----------------
 st.title("🧬 Breast Cancer Detection Analysis")
 st.markdown("Advanced Machine Learning diagnostic tool for tumor classification.")
-st.warning("⚠️ **Disclaimer:** Educational purposes only. Not a medical substitute.")
+st.warning(" **Disclaimer:** Educational purposes only. Not a medical substitute.")
 
 # ---------------- SESSION STATE ----------------
 if 'prediction' not in st.session_state:
@@ -50,7 +50,7 @@ if 'input_df' not in st.session_state:
     st.session_state.input_df = None
 
 # ---------------- INPUT SECTION ----------------
-st.markdown("### 🧾 Patient Clinical Data")
+st.markdown("###  Patient Clinical Data")
 
 with st.container():
     col1, col2 = st.columns(2)
@@ -64,7 +64,7 @@ with st.container():
         worst_rad = st.slider('Worst Radius', 7.0, 35.0, 15.0)
 
     with col2:
-        st.subheader("🧪 Texture & Concavity")
+        st.subheader("Texture & Concavity")
         mean_concavity = st.slider('Mean Concavity', 0.0, 0.45, 0.10)
         mean_concave = st.slider('Mean Concave Points', 0.0, 0.20, 0.05)
         worst_peri = st.slider('Worst Perimeter', 50.0, 260.0, 100.0)
@@ -73,7 +73,7 @@ with st.container():
 
 # ---------------- PREDICTION LOGIC ----------------
 st.markdown("---")
-if st.button("🚀 Run Comprehensive Diagnostic Analysis"):
+if st.button("Run Comprehensive Diagnostic Analysis"):
     # Feature columns MUST match the model's training order exactly
     feature_columns = [
         'worst perimeter', 'worst area', 'worst radius', 'mean concave points',
@@ -102,7 +102,7 @@ if st.session_state.prediction is not None:
     res_col1, res_col2 = st.columns([1, 2])
     
     with res_col1:
-        st.subheader("🔍 Analysis Result")
+        st.subheader("Analysis Result")
         if st.session_state.prediction == 1:
             score = st.session_state.confidence[1] * 100
             st.success(f"### **BENIGN**\nLow Risk Profile")
@@ -113,7 +113,7 @@ if st.session_state.prediction is not None:
             st.metric("Confidence", f"{score:.2f}%")
 
     # ---------------- COMPREHENSIVE VISUALIZATION ----------------
-    st.markdown("### 📊 All Feature Threshold Analysis")
+    st.markdown("### All Feature Threshold Analysis")
     
     # Clinical Thresholds for all 10 features
     thresholds = {
@@ -195,7 +195,7 @@ if st.session_state.prediction is not None:
             
         with crit_cols[i]:
             # Status Indicator
-            status_label = "🚨 DANGER" if is_danger else "✅ SAFE"
+            status_label = "DANGER" if is_danger else "SAFE"
             status_color = "#ef4444" if is_danger else "#22c55e"
             
             st.markdown(f"""
@@ -214,7 +214,7 @@ with f_col1:
     st.info("**Model Info:** Logistic Regression trained on Wisconsin Breast Cancer Dataset. Features include size, shape, and texture metrics. For educational use only.")
 
 with f_col2:
-    if st.button("🔄 Reset Analysis"):
+    if st.button(" Reset Analysis"):
         for key in list(st.session_state.keys()):
             del st.session_state[key]
         st.rerun()
